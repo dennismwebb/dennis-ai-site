@@ -7,17 +7,17 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="py-24 bg-white border-t border-slate-200/60"
+      className="border-t border-slate-200/70 bg-white py-24 dark:border-slate-800 dark:bg-slate-950"
     >
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}
         <div className="flex items-center justify-between mb-12">
           <div className="fade-up">
-            <p className="text-indigo-600 font-semibold uppercase tracking-wider text-xs">
+            <p className="text-indigo-600 dark:text-indigo-400 font-semibold uppercase tracking-wider text-xs">
               Selected Work
             </p>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Projects & Experiments
             </h2>
           </div>
@@ -28,6 +28,7 @@ export default function Projects() {
               className="
                 w-28 h-28 rounded-2xl overflow-hidden bg-white border border-slate-200
                 shadow-md flex items-center justify-center
+                dark:bg-slate-900 dark:border-slate-700
               "
             >
               <AvatarProject size={110} />
@@ -87,25 +88,28 @@ function ProjectCard({
         bg-white border border-slate-200 rounded-2xl p-6 shadow-sm
         hover:shadow-lg hover:-translate-y-1 transition
         flex flex-col
+        dark:bg-slate-900 dark:border-slate-700
       `}
     >
       <div
         className="
           w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600
           flex items-center justify-center text-xl mb-4
+          dark:bg-indigo-950 dark:text-indigo-300
         "
       >
         <i className={icon}></i>
       </div>
 
-      <h5 className="font-bold text-slate-900 mb-2">{title}</h5>
+      <h5 className="font-bold text-slate-900 dark:text-white mb-2">{title}</h5>
 
-      <p className="text-slate-600 text-sm leading-relaxed flex-1">{text}</p>
+      <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed flex-1">{text}</p>
 
       <Link
         href="#"
         className="
           mt-4 text-sm font-semibold text-indigo-600 hover:text-indigo-700
+          dark:text-indigo-400 dark:hover:text-indigo-300
           transition-colors
         "
       >

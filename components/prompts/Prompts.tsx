@@ -17,22 +17,22 @@ export default function Prompts() {
   return (
     <section
       id="prompts"
-      className="py-24 bg-gradient-to-b from-white to-slate-50 border-t border-slate-200/60"
+      className="border-t border-slate-200/70 bg-gradient-to-b from-white to-slate-50 py-24 dark:border-slate-800 dark:from-slate-950 dark:to-slate-900"
     >
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}
         <div className="text-center mb-12 fade-up">
-          <p className="text-indigo-600 font-semibold uppercase tracking-wider text-xs">
+          <p className="text-indigo-600 dark:text-indigo-400 font-semibold uppercase tracking-wider text-xs">
             Interactive
           </p>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             Things You Can Ask Me About
           </h2>
 
-          <p className="text-slate-600 mt-2">
-            Click a topic to learn more — or just reach out.
+          <p className="text-slate-600 dark:text-slate-400 mt-2">
+            Jump to chat and try one of these angles — or ask your own question.
           </p>
         </div>
 
@@ -127,13 +127,14 @@ function PromptChip({
 }) {
   return (
     <Link
-      href="#contact"
+      href="/#chat"
       className="
         flex items-center gap-3
         bg-white border border-slate-200
         px-5 py-3 rounded-full shadow-sm
         hover:border-indigo-300 hover:bg-indigo-50
-        transition text-sm font-medium text-slate-700
+        dark:bg-slate-900 dark:border-slate-700 dark:hover:border-indigo-500 dark:hover:bg-slate-800
+        transition text-sm font-medium text-slate-700 dark:text-slate-200
       "
     >
       <div className="w-8 h-8 flex items-center justify-center">{avatar}</div>
@@ -159,11 +160,12 @@ function ParadeItem({
         className="
           w-20 h-20 rounded-2xl bg-white border border-slate-200
           shadow flex items-center justify-center mx-auto
+          dark:bg-slate-900 dark:border-slate-700
         "
       >
         {avatar}
       </div>
-      <p className="text-xs text-slate-500 font-semibold mt-2 uppercase tracking-wide">
+      <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold mt-2 uppercase tracking-wide">
         {label}
       </p>
     </div>

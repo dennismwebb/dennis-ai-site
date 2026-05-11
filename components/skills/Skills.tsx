@@ -6,17 +6,17 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="py-24 bg-gradient-to-b from-white to-slate-50 border-t border-slate-200/60"
+      className="border-t border-slate-200/70 bg-gradient-to-b from-white to-slate-50 py-24 dark:border-slate-800 dark:from-slate-950 dark:to-slate-900"
     >
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header Row */}
         <div className="flex items-center justify-between mb-12">
           <div className="fade-up">
-            <p className="text-indigo-600 font-semibold uppercase tracking-wider text-xs">
+            <p className="text-indigo-600 dark:text-indigo-400 font-semibold uppercase tracking-wider text-xs">
               Technical Toolkit
             </p>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               What I Work With
             </h2>
           </div>
@@ -27,6 +27,7 @@ export default function Skills() {
               className="
                 w-32 h-32 rounded-2xl overflow-hidden bg-white border border-slate-200
                 shadow-md flex items-center justify-center
+                dark:bg-slate-900 dark:border-slate-700
               "
             >
               <AvatarLaptop size={120} />
@@ -92,20 +93,22 @@ function SkillCard({
         fade-up ${delay ?? ""}
         bg-white border border-slate-200 rounded-2xl p-6 shadow-sm
         hover:shadow-md hover:-translate-y-1 transition
+        dark:bg-slate-900 dark:border-slate-700
       `}
     >
       <div
         className="
           w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600
           flex items-center justify-center text-xl mb-4
+          dark:bg-indigo-950 dark:text-indigo-300
         "
       >
         <i className={icon}></i>
       </div>
 
-      <h5 className="font-bold text-slate-900 mb-2">{title}</h5>
+      <h5 className="font-bold text-slate-900 dark:text-white mb-2">{title}</h5>
 
-      <p className="text-slate-600 text-sm leading-relaxed">{text}</p>
+      <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{text}</p>
     </div>
   );
 }

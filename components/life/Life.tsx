@@ -9,21 +9,21 @@ export default function Life() {
   return (
     <section
       id="life"
-      className="py-24 bg-white border-t border-slate-200/60"
+      className="border-t border-slate-200/70 bg-white py-24 dark:border-slate-800 dark:bg-slate-950"
     >
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}
         <div className="text-center mb-12 fade-up">
-          <p className="text-indigo-600 font-semibold uppercase tracking-wider text-xs">
+          <p className="text-indigo-600 dark:text-indigo-400 font-semibold uppercase tracking-wider text-xs">
             Beyond the Code
           </p>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             When I'm Not at the Keyboard
           </h2>
 
-          <p className="text-slate-600 mt-2">
+          <p className="text-slate-600 dark:text-slate-400 mt-2">
             Life is more than pull requests and deployments.
           </p>
         </div>
@@ -87,20 +87,22 @@ function LifeCard({
         bg-white border border-slate-200 rounded-2xl p-6 shadow-sm
         hover:shadow-lg hover:-translate-y-1 transition
         text-center flex flex-col items-center
+        dark:bg-slate-900 dark:border-slate-700
       `}
     >
       <div
         className="
           w-32 h-32 rounded-2xl overflow-hidden bg-white border border-slate-200
           shadow flex items-center justify-center mb-4
+          dark:bg-slate-950 dark:border-slate-700
         "
       >
         {avatar}
       </div>
 
-      <h6 className="font-bold text-slate-900 mb-1">{title}</h6>
+      <h6 className="font-bold text-slate-900 dark:text-white mb-1">{title}</h6>
 
-      <p className="text-slate-600 text-sm leading-relaxed">
+      <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
         {text}
       </p>
     </div>

@@ -6,22 +6,22 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="py-24 bg-gradient-to-b from-white to-slate-50 border-t border-slate-200/60"
+      className="border-t border-slate-200/70 bg-gradient-to-b from-white to-slate-50 py-24 dark:border-slate-800 dark:from-slate-950 dark:to-slate-900"
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-3 gap-12">
 
           {/* Left Column — Header + Avatar */}
           <div className="space-y-6 fade-up">
-            <p className="text-indigo-600 font-semibold uppercase tracking-wider text-xs">
+            <p className="text-indigo-600 dark:text-indigo-400 font-semibold uppercase tracking-wider text-xs">
               Career
             </p>
 
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Experience
             </h2>
 
-            <p className="text-slate-600 leading-relaxed">
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
               Over two decades of building, leading, and teaching across the full stack.
             </p>
 
@@ -30,6 +30,7 @@ export default function Experience() {
                 hidden lg:flex
                 w-48 h-48 rounded-2xl overflow-hidden bg-white border border-slate-200
                 shadow-md items-center justify-center
+                dark:bg-slate-900 dark:border-slate-700
               "
             >
               <AvatarResume size={150} />
@@ -38,7 +39,7 @@ export default function Experience() {
 
           {/* Right Column — Timeline */}
           <div className="lg:col-span-2 fade-up">
-            <div className="relative border-l border-slate-300 pl-8 space-y-10">
+            <div className="relative border-l border-slate-300 pl-8 space-y-10 dark:border-slate-600">
 
               <TimelineItem
                 role="Lead Software Engineer"
@@ -92,16 +93,16 @@ function TimelineItem({
       <div
         className="
           absolute -left-[11px] top-1
-          w-4 h-4 rounded-full border-2 border-white
-          bg-indigo-600 shadow
+          w-4 h-4 rounded-full border-2 border-white dark:border-slate-950
+          bg-indigo-600 shadow dark:bg-indigo-500
         "
       />
 
-      <p className="font-bold text-slate-900 text-lg">{role}</p>
-      <p className="text-slate-500 text-sm mb-2">{meta}</p>
+      <p className="font-bold text-slate-900 dark:text-white text-lg">{role}</p>
+      <p className="text-slate-500 dark:text-slate-400 text-sm mb-2">{meta}</p>
 
       {text && (
-        <p className="text-slate-600 text-sm leading-relaxed">{text}</p>
+        <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{text}</p>
       )}
     </div>
   );

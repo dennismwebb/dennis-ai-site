@@ -4,7 +4,13 @@ import { useChat } from "@/hooks/useChat";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 
-export default function Chat() {
+type ChatProps = {
+  /** Full-page chat keeps sidebar avatar; home embed is tighter */
+  variant?: "embedded" | "page";
+  showAvatar?: boolean;
+};
+
+export default function Chat({ variant = "page", showAvatar = true }: ChatProps) {
   const { messages, sendMessage, isLoading } = useChat();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,26 +24,37 @@ export default function Chat() {
     await sendMessage(text);
   };
 
+  const showSideAvatar = showAvatar && variant === "page";
+
   return (
-    <div className="flex h-full">
+    <div className="flex h-full min-h-0 flex-1">
+      {showSideAvatar && (
+        <div className="hidden w-1/3 shrink-0 items-start justify-center pt-8 md:flex lg:w-1/4">
+          <Image
+            src="/avatars/waving.png"
+            alt="Dennis avatar"
+            width={220}
+            height={220}
+            className="rounded-full object-contain ring-1 ring-slate-200/80 dark:ring-slate-600"
+            priority
+          />
+        </div>
+      )}
 
-      {/* LEFT COLUMN — Avatar */}
-      <div className="hidden md:flex w-1/3 lg:w-1/4 items-start justify-center pt-10">
-        <Image
-          src="/avatars/waving.png"
-          alt="Dennis avatar"
-          width={260}
-          height={260}
-          className="rounded-full object-contain"
-          priority
-        />
-      </div>
-
-      {/* RIGHT COLUMN — Chat */}
-      <div className="flex flex-col flex-1 relative bg-gradient-to-b from-white to-slate-50">
-
-        {/* Scrollable messages */}
-        <div className="flex-1 overflow-y-auto px-6 pb-32 pt-10 space-y-4">
+      <div
+        className={`
+          relative flex min-h-0 flex-1 flex-col
+          bg-gradient-to-b from-slate-50 to-white
+          dark:from-slate-900 dark:to-slate-950
+          ${variant === "embedded" ? "" : ""}
+        `}
+      >
+        <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-4 py-6 sm:px-6 sm:py-8 pb-28">
+          {messages.length === 0 && (
+            <p className="text-center text-sm text-slate-500 dark:text-slate-400 italic px-2">
+              Try: “Summarize your experience with .NET and Angular” or “What are you building with AI agents?”
+            </p>
+          )}
           {messages.map((msg, i) => (
             <div
               key={i}
@@ -47,49 +64,62 @@ export default function Chat() {
             >
               <div
                 className={`
-                  max-w-[75%] p-4 rounded-2xl shadow
+                  max-w-[85%] sm:max-w-[75%] rounded-2xl px-4 py-3 text-[15px] leading-relaxed shadow-sm
                   ${
                     msg.role === "user"
-                      ? "bg-slate-900 text-white"
-                      : "bg-white border border-slate-200 text-slate-900"
+                      ? "bg-slate-900 text-white dark:bg-indigo-600 dark:text-white"
+                      : "border border-slate-200 bg-white text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
                   }
                 `}
               >
-                <ReactMarkdown>{msg.content}</ReactMarkdown>
+                <div className="[&_p]:my-1 [&_pre]:my-2 [&_pre]:overflow-x-auto [&_code]:text-[0.9em]">
+                  <ReactMarkdown>{msg.content}</ReactMarkdown>
+                </div>
               </div>
             </div>
           ))}
 
           {isLoading && (
             <div className="flex justify-start">
-              <div className="bg-white border border-slate-200 text-slate-500 px-4 py-2 rounded-2xl shadow text-sm italic">
-                Dennis is thinking…
+              <div
+                className="
+                  rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm italic
+                  text-slate-500 shadow-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400
+                "
+              >
+                Thinking…
               </div>
             </div>
           )}
         </div>
 
-        {/* Static input bar */}
         <form
           onSubmit={handleSubmit}
-          className="absolute bottom-0 left-0 right-0 p-4 bg-white border-t border-slate-200 flex gap-3"
+          className="
+            absolute bottom-0 left-0 right-0 flex gap-2 border-t border-slate-200 bg-white/95 p-3
+            backdrop-blur-sm sm:gap-3 sm:p-4
+            dark:border-slate-700 dark:bg-slate-900/95
+          "
         >
           <input
             type="text"
             name="message"
-            placeholder="Ask Dennis anything..."
+            placeholder="Ask about experience, stack, or projects…"
+            autoComplete="off"
             className="
-              flex-1 px-4 py-3 rounded-xl border border-slate-300
-              focus:outline-none focus:ring-2 focus:ring-slate-500
-              bg-white text-slate-900 placeholder-slate-400
+              min-w-0 flex-1 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-slate-900
+              placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2
+              focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100
+              dark:placeholder:text-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-400/20
             "
           />
           <button
             type="submit"
             className="
-              px-6 py-3 rounded-xl text-white font-semibold
-              bg-gradient-to-r from-indigo-600 to-violet-600
-              shadow hover:shadow-md transition
+              shrink-0 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-sm
+              bg-slate-900 hover:bg-slate-800 sm:px-6
+              dark:bg-indigo-600 dark:hover:bg-indigo-500
+              transition-colors
             "
           >
             Send

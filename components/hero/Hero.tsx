@@ -2,6 +2,7 @@
 
 import { AvatarWaving } from "@/components/avatar/AvatarWaving";
 import Link from "next/link";
+import Chat from "@/components/chat/Chat";
 
 export default function Hero() {
   return (
@@ -9,122 +10,114 @@ export default function Hero() {
       id="hero"
       className="
         relative overflow-hidden
-        bg-gradient-to-b from-white via-indigo-50/40 to-white
-        pt-32 pb-24
+        border-b border-slate-200/80 dark:border-slate-800
+        bg-gradient-to-b from-slate-50 via-white to-slate-50
+        dark:from-slate-950 dark:via-slate-900 dark:to-slate-950
+        pt-28 pb-16 sm:pb-20 lg:pt-32 lg:pb-24
       "
     >
-      {/* Decorative radial glow */}
       <div
         className="
-          pointer-events-none absolute -top-40 -right-40
-          h-[500px] w-[500px] rounded-full
-          bg-gradient-to-br from-indigo-200/40 to-violet-200/40
-          blur-3xl opacity-60
+          pointer-events-none absolute -top-32 right-0 h-[420px] w-[420px] rounded-full
+          bg-gradient-to-br from-indigo-400/15 via-violet-400/10 to-transparent
+          blur-3xl dark:from-indigo-500/10 dark:via-violet-500/5
         "
+        aria-hidden
       />
 
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-
-          {/* Left Column — Text + Speech Bubble */}
-          <div className="space-y-6 fade-up">
-
-            {/* Speech Bubble */}
-            <div
-              className="
-                relative bg-white border border-indigo-200
-                rounded-2xl shadow-md p-6 max-w-md
-              "
-            >
-              <p className="text-indigo-600 font-semibold mb-1">Hey there! 👋</p>
-              <p className="text-slate-700">
-                I'm <strong>Dennis</strong> — a software engineer who builds things for the web,
-                cloud, and the fun of it.
-              </p>
-
-              {/* Bubble Tail */}
-              <div
-                className="
-                  absolute -bottom-3 left-10
-                  w-0 h-0
-                  border-l-8 border-r-8 border-t-8
-                  border-l-transparent border-r-transparent border-t-white
-                "
-              />
-              <div
-                className="
-                  absolute -bottom-[14px] left-[38px]
-                  w-0 h-0
-                  border-l-[10px] border-r-[10px] border-t-[10px]
-                  border-l-transparent border-r-transparent border-t-indigo-200
-                "
-              />
-            </div>
-
-            {/* Tagline */}
-            <h1
-              className="
-                text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight
-              "
-            >
-              Building the future,
-              <br />
-              <span
-                className="
-                  bg-gradient-to-r from-indigo-500 to-violet-500
-                  bg-clip-text text-transparent
-                "
-              >
-                one commit at a time.
-              </span>
-            </h1>
-
-            {/* Subtext */}
-            <p className="text-slate-600 text-lg leading-relaxed max-w-xl">
-              Lead Software Engineer · AI Explorer · Adjunct Faculty · Mountain Biker  
-              <br />
-              Based in Peoria, AZ 🌵
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-stretch">
+          {/* Intro — resume positioning */}
+          <div className="space-y-6 lg:col-span-5 flex flex-col justify-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+              Lead software engineer · Peoria, AZ
             </p>
 
-            {/* Buttons */}
-            <div className="flex flex-wrap gap-4 pt-2">
+            <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
+              Dennis Webb
+            </h1>
+
+            <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-md">
+              I design and ship enterprise web platforms, explore applied AI, and teach
+              adjunct — focused on clarity, reliability, and teams that ship.
+            </p>
+
+            <div className="flex flex-wrap gap-3 pt-1">
+              <Link
+                href="#experience"
+                className="
+                  inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold
+                  bg-slate-900 text-white shadow-sm
+                  hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100
+                  transition-colors
+                "
+              >
+                View experience
+              </Link>
               <Link
                 href="#projects"
                 className="
-                  px-6 py-3 rounded-xl text-white font-semibold text-sm
-                  bg-gradient-to-r from-indigo-600 to-violet-600
-                  shadow-md hover:shadow-lg transition
+                  inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold
+                  border border-slate-300 bg-white text-slate-800
+                  hover:border-slate-400 hover:bg-slate-50
+                  dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800
+                  transition-colors
                 "
               >
-                View Projects
+                Selected projects
               </Link>
-
               <Link
-                href="#contact"
+                href="#chat"
                 className="
-                  px-6 py-3 rounded-xl text-sm font-semibold
-                  border border-indigo-500 text-indigo-600
-                  hover:bg-indigo-50 transition
+                  inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold
+                  text-indigo-700 dark:text-indigo-300
+                  hover:text-indigo-900 dark:hover:text-indigo-200
+                  transition-colors
                 "
               >
-                Get in Touch
+                Ask the assistant →
               </Link>
+            </div>
+
+            <div className="flex items-center gap-4 pt-4 border-t border-slate-200/80 dark:border-slate-800">
+              <div
+                className="
+                  h-16 w-16 shrink-0 overflow-hidden rounded-full border border-slate-200 bg-white
+                  shadow-sm dark:border-slate-700 dark:bg-slate-900
+                "
+              >
+                <AvatarWaving size={64} />
+              </div>
+              <p className="text-sm text-slate-500 dark:text-slate-400 leading-snug max-w-xs">
+                Prefer email or LinkedIn for formal inquiries; use the assistant for a
+                quick, conversational overview of my work.
+              </p>
             </div>
           </div>
 
-          {/* Right Column — Avatar */}
-          <div className="flex justify-center lg:justify-end fade-up">
+          {/* Chat — primary CTA */}
+          <div className="lg:col-span-7 flex min-h-[min(70vh,640px)] flex-col">
+            <div className="mb-3 flex items-end justify-between gap-4">
+              <div>
+                <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+                  Chat with my assistant
+                </h2>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                  Ask about stack, leadership, teaching, or side projects — answers stream live.
+                </p>
+              </div>
+            </div>
             <div
+              id="chat"
               className="
-                w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80
-                rounded-full overflow-hidden bg-white border border-slate-200
-                shadow-xl flex items-center justify-center
+                flex flex-1 flex-col min-h-0 overflow-hidden rounded-2xl border border-slate-200/90
+                bg-white shadow-sm ring-1 ring-slate-900/[0.04]
+                dark:border-slate-700 dark:bg-slate-900 dark:ring-white/[0.06]
               "
             >
-              <AvatarWaving size={260} />
+              <Chat variant="embedded" showAvatar={false} />
             </div>
           </div>
-
         </div>
       </div>
     </section>

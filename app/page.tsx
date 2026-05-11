@@ -9,7 +9,7 @@ import Prompts from "@/components/prompts/Prompts";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-white text-slate-900">
+    <main className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
 
       {/* Navbar */}
       <Navbar />
@@ -24,7 +24,7 @@ export default function HomePage() {
       <Prompts />
 
       {/* Footer */}
-      <footer className="py-12 text-center text-sm text-slate-500 border-t border-slate-200 mt-24">
+      <footer className="py-12 text-center text-sm text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800 mt-24">
         <p>© {new Date().getFullYear()} Dennis Webb — Built with Next.js & Tailwind CSS</p>
       </footer>
 
