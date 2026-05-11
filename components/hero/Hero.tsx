@@ -26,7 +26,7 @@ export default function Hero() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-stretch">
+        <div className="grid min-h-0 gap-10 lg:grid-cols-12 lg:gap-12 lg:items-stretch">
           {/* Intro — resume positioning */}
           <div className="space-y-6 lg:col-span-5 flex flex-col justify-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
@@ -95,8 +95,8 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Chat — primary CTA */}
-          <div className="lg:col-span-7 flex min-h-[min(70vh,640px)] flex-col">
+          {/* Chat — primary CTA: fixed height so the message list can overflow-y-scroll */}
+          <div className="lg:col-span-7 flex min-h-0 flex-col h-[min(68dvh,560px)] lg:h-[min(70vh,640px)]">
             <div className="mb-3 flex items-end justify-between gap-4">
               <div>
                 <h2 className="text-lg font-semibold text-slate-900 dark:text-white">

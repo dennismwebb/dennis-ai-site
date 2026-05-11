@@ -27,7 +27,7 @@ export default function Chat({ variant = "page", showAvatar = true }: ChatProps)
   const showSideAvatar = showAvatar && variant === "page";
 
   return (
-    <div className="flex h-full min-h-0 flex-1">
+    <div className="flex h-full min-h-0 w-full min-w-0 flex-1">
       {showSideAvatar && (
         <div className="hidden w-1/3 shrink-0 items-start justify-center pt-8 md:flex lg:w-1/4">
           <Image
@@ -43,13 +43,13 @@ export default function Chat({ variant = "page", showAvatar = true }: ChatProps)
 
       <div
         className={`
-          relative flex min-h-0 flex-1 flex-col
+          flex min-h-0 flex-1 flex-col
           bg-gradient-to-b from-slate-50 to-white
           dark:from-slate-900 dark:to-slate-950
           ${variant === "embedded" ? "" : ""}
         `}
       >
-        <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-4 py-6 sm:px-6 sm:py-8 pb-28">
+        <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-4 py-6 sm:px-6 sm:pb-8 sm:pt-8">
           {messages.length === 0 && (
             <p className="text-center text-sm text-slate-500 dark:text-slate-400 italic px-2">
               Try: “Summarize your experience with .NET and Angular” or “What are you building with AI agents?”
@@ -96,9 +96,8 @@ export default function Chat({ variant = "page", showAvatar = true }: ChatProps)
         <form
           onSubmit={handleSubmit}
           className="
-            absolute bottom-0 left-0 right-0 flex gap-2 border-t border-slate-200 bg-white/95 p-3
-            backdrop-blur-sm sm:gap-3 sm:p-4
-            dark:border-slate-700 dark:bg-slate-900/95
+            flex shrink-0 gap-2 border-t border-slate-200 bg-white/95 p-3 backdrop-blur-sm
+            sm:gap-3 sm:p-4 dark:border-slate-700 dark:bg-slate-900/95
           "
         >
           <input

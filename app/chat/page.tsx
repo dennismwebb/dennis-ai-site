@@ -17,8 +17,9 @@ export default function ChatPage() {
         </div>
         <div
           className="
-            h-[min(78vh,720px)] min-h-[480px] overflow-hidden rounded-2xl border border-slate-200 bg-white
+            flex min-h-0 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white
             shadow-sm ring-1 ring-slate-900/[0.04] dark:border-slate-700 dark:bg-slate-900 dark:ring-white/[0.06]
+            h-[min(78vh,720px)] min-h-[480px]
           "
         >
           <Chat variant="page" showAvatar />
