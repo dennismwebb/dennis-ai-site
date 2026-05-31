@@ -1,31 +1,28 @@
 import {
   API_UNAUTHORIZED_MESSAGE,
   ApiError,
-  postChat,
+  postAsk,
 } from "@/lib/api";
 import { NextResponse } from "next/server";
 
+/**
+ * BFF route for the RAG ask endpoint. The browser calls this route only;
+ * API_KEY is attached here when proxying to the backend /api/ask pipeline.
+ */
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const message = body?.message;
+    const question = body?.question;
 
-    if (!message || typeof message !== "string") {
+    if (!question || typeof question !== "string") {
       return NextResponse.json(
-        { error: "Message is required" },
+        { error: "Question is required" },
         { status: 400 },
       );
     }
 
-    const backendRes = await postChat(message);
-
-    return new Response(backendRes.body, {
-      status: backendRes.status,
-      headers: {
-        "Content-Type":
-          backendRes.headers.get("Content-Type") ?? "text/plain; charset=utf-8",
-      },
-    });
+    const { answer } = await postAsk(question);
+    return NextResponse.json({ answer });
   } catch (err) {
     if (err instanceof ApiError && err.status === 401) {
       return NextResponse.json(
@@ -34,7 +31,7 @@ export async function POST(request: Request) {
       );
     }
 
-    console.error("[api/chat]", err);
+    console.error("[api/ask]", err);
     return NextResponse.json(
       { error: "Something went wrong. Please try again." },
       { status: 500 },
