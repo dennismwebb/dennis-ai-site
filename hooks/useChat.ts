@@ -7,6 +7,13 @@ export interface Message {
   content: string;
 }
 
+/**
+ * Chat hook — UI layer for the portfolio RAG assistant.
+ *
+ * Flow: user message → POST /api/ask (Next.js route, no API key in browser)
+ * → server attaches API_KEY and calls backend /api/ask → RAG pipeline returns
+ * { answer } → assistant bubble renders the answer as markdown.
+ */
 async function readErrorMessage(response: Response): Promise<string> {
   try {
     const data = await response.json();
@@ -26,72 +33,42 @@ export function useChat() {
 
   const sendMessage = async (text: string) => {
     setMessages((prev) => [...prev, { role: "user", content: text }]);
-    setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/chat", {
+      const response = await fetch("/api/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text }),
+        body: JSON.stringify({ question: text }),
       });
 
       if (!response.ok) {
         const errorMessage = await readErrorMessage(response);
-        setMessages((prev) => {
-          const updated = [...prev];
-          updated[updated.length - 1] = {
-            role: "assistant",
-            content: errorMessage,
-          };
-          return updated;
-        });
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: errorMessage },
+        ]);
         return;
       }
 
-      const reader = response.body?.getReader();
-      if (!reader) {
-        throw new Error("No response body");
-      }
+      const data = await response.json();
+      const answer =
+        typeof data?.answer === "string"
+          ? data.answer
+          : "Something went wrong. Please try again.";
 
-      const decoder = new TextDecoder();
-      let fullText = "";
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const chunk = decoder.decode(value);
-
-        try {
-          const json = JSON.parse(chunk);
-          if (json.reply) {
-            fullText += json.reply;
-          } else {
-            fullText += chunk;
-          }
-        } catch {
-          fullText += chunk;
-        }
-
-        setMessages((prev) => {
-          const updated = [...prev];
-          updated[updated.length - 1] = {
-            role: "assistant",
-            content: fullText,
-          };
-          return updated;
-        });
-      }
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: answer },
+      ]);
     } catch {
-      setMessages((prev) => {
-        const updated = [...prev];
-        updated[updated.length - 1] = {
+      setMessages((prev) => [
+        ...prev,
+        {
           role: "assistant",
           content: "Something went wrong. Please try again.",
-        };
-        return updated;
-      });
+        },
+      ]);
     } finally {
       setIsLoading(false);
     }

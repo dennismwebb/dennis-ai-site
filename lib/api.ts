@@ -91,11 +91,42 @@ export async function apiFetch(
   return res;
 }
 
-/** POST /api/chat — returns the raw streaming response from the backend. */
-export async function postChat(message: string): Promise<Response> {
-  return apiFetch("/api/chat", {
+export type AskResponse = { answer: string };
+
+type ChatResponse = { reply?: string };
+
+/**
+ * POST /api/ask — sends the user's question through the backend RAG pipeline
+ * (retrieval over portfolio context, then LLM synthesis) and returns a single answer.
+ *
+ * When the backend has not yet deployed /api/ask, falls back to POST /api/chat
+ * and maps `{ reply }` → `{ answer }` so the UI contract stays stable.
+ */
+export async function postAsk(question: string): Promise<AskResponse> {
+  try {
+    const res = await apiFetch("/api/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question }),
+    });
+    return res.json() as Promise<AskResponse>;
+  } catch (err) {
+    if (!(err instanceof ApiError) || err.status !== 404) {
+      throw err;
+    }
+    console.info(
+      "[api] /api/ask not available — using /api/chat until the RAG ask endpoint is deployed",
+    );
+  }
+
+  const res = await apiFetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message }),
+    body: JSON.stringify({ message: question }),
   });
+  const data = (await res.json()) as ChatResponse;
+  if (typeof data.reply !== "string") {
+    throw new ApiError("Backend chat response missing reply", 502);
+  }
+  return { answer: data.reply };
 }
